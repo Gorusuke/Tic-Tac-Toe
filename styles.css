@@ -1,9 +1,9 @@
 :root {
   --bg-gradient: linear-gradient(130deg, #005e9c 0%, #00111c 30%, #00111c 70%, #005e9c 100%);
   --bg-text-gradient: linear-gradient(90deg, #005e9c, #000);
+  --bg-gradient-transparency: linear-gradient(130deg, #005f9eb3 0%, #00111cb3 30%, #00111cb3 70%, #005f9eb3 100%);
   --bg-color: #fff;
   --margin: 20px;
-  --bg-gradient-transparency: linear-gradient(130deg, #005f9eb3 0%, #00111cb3 30%, #00111cb3 70%, #005f9eb3 100%);
 }
 
 * {
@@ -28,11 +28,10 @@ body {
   border: 1px solid;
   box-shadow: 6px 4px 20px rgba(0, 0, 0, .1),
     inset 6px 4px 12px rgba(0, 0, 0, .2);
-  /* display: none; */
 }
 
 .game-selection h1 {
-  color: white;
+  color: var(--bg-color);
   font-size: 5rem;
 }
 
@@ -50,21 +49,6 @@ body {
   -webkit-text-fill-color: transparent;
   animation: letterAnimation 3s infinite;
   animation-delay: var(--delay);
-}
-
-@keyframes letterAnimation {
-
-  0%,
-  16.66%,
-  100% {
-    opacity: 1;
-  }
-
-  33.33%,
-  83.33% {
-    opacity: 0;
-  }
-
 }
 
 .game-selection p {
@@ -89,7 +73,6 @@ body {
   color: var(--bg-text-gradient);
   font-size: 2rem;
   font-weight: 600;
-  background: #fff;
   background: var(--bg-text-gradient);
   background-clip: text;
   -webkit-background-clip: text;
@@ -106,14 +89,14 @@ body {
 
 .game-selection .game-players .game-player:hover {
   cursor: pointer;
-  -webkit-text-fill-color: #fff;
+  -webkit-text-fill-color: var(--bg-color);
   background: var(--bg-text-gradient);
 }
 
 .dot {
   width: 25px;
   height: 25px;
-  background: #fff;
+  background: var(--bg-color);
   border-radius: 50%;
   background: var(--bg-text-gradient);
   display: flex;
@@ -132,8 +115,8 @@ body {
 
 .game-selection .game-players .game-player:hover span {
   cursor: pointer;
-  -webkit-text-fill-color: #fff;
-  background: white;
+  -webkit-text-fill-color: var(--bg-color);
+  background: var(--bg-color);
 }
 
 .game-selection .game-players .game-player:hover span::after {
@@ -146,6 +129,21 @@ body {
 
 .fadeIn {
   animation: show .3s linear alternate;
+}
+
+@keyframes letterAnimation {
+
+  0%,
+  16.66%,
+  100% {
+    opacity: 1;
+  }
+
+  33.33%,
+  83.33% {
+    opacity: 0;
+  }
+
 }
 
 @keyframes hide {
@@ -176,7 +174,7 @@ body {
   display: none;
   padding: 30px;
   border-radius: 10px;
-  background: white;
+  background: var(--bg-color);
   text-align: center;
   box-shadow: 6px 4px 20px rgba(0, 0, 0, .1),
     inset 6px 4px 12px rgba(0, 0, 0, .2);
@@ -219,7 +217,7 @@ body {
 
 .game-reset:hover {
   cursor: pointer;
-  -webkit-text-fill-color: #fff;
+  -webkit-text-fill-color: var(--bg-color);
   background: var(--bg-text-gradient);
 }
 
@@ -227,7 +225,7 @@ body {
   display: none;
   padding: 40px 50px;
   border-radius: 10px;
-  background: white;
+  background: var(--bg-color);
   text-align: center;
   box-shadow: 6px 4px 20px rgba(0, 0, 0, .1),
     inset 6px 4px 12px rgba(0, 0, 0, .2);
