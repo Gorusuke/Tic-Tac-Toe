@@ -1,15 +1,14 @@
 :root {
-  --bg-gradient: linear-gradient(130deg, rgba(0, 94, 156, 1) 0%, rgba(0, 17, 28, 1) 30%, rgba(0, 17, 28, 1) 70%, rgba(0, 94, 156, 1) 100%);
-  --bg-color: #ffffff80;
-  --bg-text: black;
+  --bg-gradient: linear-gradient(130deg, #005e9c 0%, #00111c 30%, #00111c 70%, #005e9c 100%);
+  --bg-text-gradient: linear-gradient(90deg, #005e9c, #000);
+  --bg-color: #fff;
+  --margin: 20px;
 }
 
 * {
   margin: 0;
   padding: 0;
-  border: 0;
-  box-sizing: border-box;
-  font-family: 'DynaPuff', cursive;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -17,19 +16,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background: #B33951; */
   background: var(--bg-gradient)
 }
-
-/*
-    -- Selection Styles --
-*/
 
 .game-selection {
   padding: 50px 80px;
   border-radius: 8px;
   background: var(--bg-color);
-  /* background: transparent; */
   text-align: center;
   border: 1px solid;
   box-shadow: 6px 4px 20px rgba(0, 0, 0, .1),
@@ -39,8 +32,6 @@ body {
 .game-selection h1 {
   color: white;
   font-size: 5rem;
-  font-weight: 800;
-  text-align: center;
 }
 
 .game-selection span {
@@ -75,134 +66,78 @@ body {
 }
 
 .game-selection p {
-  color: #222;
   font-size: 1.5rem;
   font-weight: 600;
-  /* font-variant: small-caps; */
-  margin-top: 30px;
+  margin-top: var(--margin);
+  background: #000;
+  background: var(--bg-text-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .game-selection .game-players {
-  /* width: 100%; */
-  margin-top: 10px;
+  margin-top: var(--margin);
+  display: flex;
+  justify-content: center;
+  gap: .8rem;
 }
 
 .game-selection .game-players .game-player {
-  cursor: pointer;
-  color: #B33951;
-  width: 5.5rem;
-  height: 4rem;
-  margin: 0 4px;
+  color: var(--bg-text-gradient);
   font-size: 2rem;
-  border-radius: 4px;
-  border: 3px solid #B33951;
-  transition: .4s;
+  font-weight: 600;
+  background: #fff;
+  background: var(--bg-text-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border: 2px solid;
+  border-radius: 5px;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: ease-in .5s;
 }
 
-.game-selection .players .player:hover {
-  color: #fff;
-  background: #B33951;
+.game-selection .game-players .game-player:hover {
+  cursor: pointer;
+  -webkit-text-fill-color: #fff;
+  background: var(--bg-text-gradient);
 }
 
-/*
-    -- FadeOut & FadeIn Animations --
-*/
-
-.fadeOut {
-  animation: hide .3s linear alternate;
+.dot {
+  width: 25px;
+  height: 25px;
+  background: #fff;
+  border-radius: 50%;
+  background: var(--bg-text-gradient);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes hide {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  to {
-    opacity: 0;
-    transform: scale(0);
-  }
+.dot::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--bg-color);
 }
 
-.fadeIn {
-  animation: show .3s linear alternate;
+.game-selection .game-players .game-player:hover span {
+  cursor: pointer;
+  -webkit-text-fill-color: #fff;
+  background: white;
 }
 
-@keyframes show {
-  from {
-    opacity: 0;
-    transform: scale(0);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.game-selection .game-players .game-player:hover span::after {
+  background: var(--bg-text-gradient);
 }
-
-/*
-    -- PlayBoard Styles --
-*/
-
-.game-board {
-  display: none;
-  padding: 30px;
-  border-radius: 8px;
-  background: #f9f9f9;
-  text-align: center;
-  box-shadow: 6px 4px 20px rgba(0, 0, 0, .1),
-    inset 6px 4px 12px rgba(0, 0, 0, .2);
-}
-
-table td {
-  width: 3em;
-  height: 3em;
-  font-size: 2em;
-  text-align: center;
-  background: #ff9eb150;
-  border: 2px solid #f9f9f9;
-  border-radius: 8pxp;
-  cursor: pointerr;
-  transition: .4s linear;
-}
-
-/*
-    -- Reset Button --
-*/
 
 .game-reset {
-  cursor: pointer;
-  color: #B33951;
-  padding: 8px 18px;
-  margin-top: 30px;
-  font-size: 1.5rem;
-  border-radius: 4px;
-  border: 3px solid #B33951;
-  transition: .4s;
-  /* display: none; */
-}
-
-.game-reset:hover {
-  color: #fff;
-  background: #B33951;
-}
-
-/*
-    -- Winner Declaration Styles --
-*/
-
-.game-winner {
   display: none;
-  padding: 40px 50px;
-  border-radius: 8px;
-  background: #f9f9f9;
-  text-align: center;
-  box-shadow: 6px 4px 20px rgba(0, 0, 0, .1),
-    inset 6px 4px 12px rgba(0, 0, 0, .2);
-}
-
-.game-winner h4 {
-  font-size: 30px;
-  font-weight: 500;
-  font-variant: small-caps;
 }
