@@ -3,6 +3,7 @@
   --bg-text-gradient: linear-gradient(90deg, #005e9c, #000);
   --bg-color: #fff;
   --margin: 20px;
+  --bg-gradient-transparency: linear-gradient(130deg, #005f9eb3 0%, #00111cb3 30%, #00111cb3 70%, #005f9eb3 100%);
 }
 
 * {
@@ -27,6 +28,7 @@ body {
   border: 1px solid;
   box-shadow: 6px 4px 20px rgba(0, 0, 0, .1),
     inset 6px 4px 12px rgba(0, 0, 0, .2);
+  /* display: none; */
 }
 
 .game-selection h1 {
@@ -138,6 +140,100 @@ body {
   background: var(--bg-text-gradient);
 }
 
-.game-reset {
+.fadeOut {
+  animation: hide .3s linear alternate;
+}
+
+.fadeIn {
+  animation: show .3s linear alternate;
+}
+
+@keyframes hide {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.game-board {
   display: none;
+  padding: 30px;
+  border-radius: 10px;
+  background: white;
+  text-align: center;
+  box-shadow: 6px 4px 20px rgba(0, 0, 0, .1),
+    inset 6px 4px 12px rgba(0, 0, 0, .2);
+}
+
+.main-game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .3rem;
+}
+
+.main-game-board .game-cell {
+  width: 6rem;
+  height: 6rem;
+  text-align: center;
+  background: var(--bg-gradient-transparency);
+  border: 2px solid #f9f9f9;
+  border-radius: 8px;
+  transition: .4s linear;
+  font-size: 4rem;
+}
+
+.main-game-board .game-cell:hover {
+  cursor: pointer;
+}
+
+.game-reset {
+  color: var(--bg-text-gradient);
+  font-size: 1.5rem;
+  background: var(--bg-text-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border: 2px solid;
+  border-radius: 5px;
+  margin-top: var(--margin);
+  padding: 0 calc(var(--margin) / 2);
+  transition: ease-in .5s;
+}
+
+.game-reset:hover {
+  cursor: pointer;
+  -webkit-text-fill-color: #fff;
+  background: var(--bg-text-gradient);
+}
+
+.game-winner {
+  display: none;
+  padding: 40px 50px;
+  border-radius: 10px;
+  background: white;
+  text-align: center;
+  box-shadow: 6px 4px 20px rgba(0, 0, 0, .1),
+    inset 6px 4px 12px rgba(0, 0, 0, .2);
+}
+
+.game-winner h4 {
+  font-size: 30px;
+  font-weight: 500;
 }
