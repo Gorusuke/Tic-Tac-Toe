@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="./App.js" defer></script>
+</head>
+
+<body>
+  <div class="game-selection">
+    <h1>
+      <span style="--content: 'Tic'; --start-color: #007CF0; --end-color: #00DFD8; --delay: 0s">Tic</span>
+      <span style="--content: 'Tac'; --start-color: #7928CA; --end-color: #FF0080; --delay: 1s">Tac</span>
+      <span style="--content: 'Toe'; --start-color: #FF4D4D; --end-color: #F9CB28;  --delay: 2s">Toe</span>
+    </h1>
+    <p>Select Your Player</p>
+    <div class="game-players">
+      <button class="game-player" onClick="playerSelect('X')">X</button>
+      <button class="game-player" onClick="playerSelect('O')">O</button>
+    </div>
+  </div>
+
+  <div class="game-board">
+    <table>
+      <tr>
+        <td class="game-cell" id="0"></td>
+        <td class="game-cell" id="1"></td>
+        <td class="game-cell" id="2"></td>
+      </tr>
+      <tr>
+        <td class="game-cell" id="3"></td>
+        <td class="game-cell" id="4"></td>
+        <td class="game-cell" id="5"></td>
+      </tr>
+      <tr>
+        <td class="game-cell" id="6"></td>
+        <td class="game-cell" id="7"></td>
+        <td class="game-cell" id="8"></td>
+      </tr>
+    </table>
+    <button class="game-reset" onclick="startGame()">Reset Game</button>
+  </div>
+
+  <div class="game-winner">
+    <h4></h4>
+    <button class="game-reset" onclick="startGame()">Play Again</button>
+  </div>
+</body>
+
+</html>
