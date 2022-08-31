@@ -21,7 +21,7 @@ body {
 }
 
 .game-selection {
-  padding: 50px 80px;
+  padding: 50px;
   border-radius: 8px;
   background: var(--bg-color);
   text-align: center;
@@ -211,7 +211,7 @@ body {
   border: 2px solid;
   border-radius: 5px;
   margin-top: var(--margin);
-  padding: 0 calc(var(--margin) / 2);
+  padding: 5px calc(var(--margin) / 2);
   transition: ease-in .5s;
 }
 

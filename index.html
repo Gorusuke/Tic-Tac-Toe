@@ -22,8 +22,8 @@
     </h1>
     <p>Select Your Player</p>
     <div class="game-players">
-      <button class="game-player" onClick="playerSelect('X')">&#x2716</button>
-      <button class="game-player">
+      <button id="select-player-1" class="game-player">&#x2716</button>
+      <button id="select-player-2" class="game-player">
         <span class="dot"></span>
       </button>
     </div>
@@ -41,12 +41,12 @@
       <div class="game-cell" id="7"></div>
       <div class="game-cell" id="8"></div>
     </main>
-    <button class="game-reset" onclick="startGame()">Reset Game</button>
+    <button id="reset-game" class="game-reset">Reset Game</button>
   </div>
 
   <div class="game-winner">
     <h4></h4>
-    <button class="game-reset" onclick="startGame()">Play Again</button>
+    <button id="play-again" class="game-reset">Play Again</button>
   </div>
 </body>
 
