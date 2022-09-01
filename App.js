@@ -10,7 +10,16 @@ const playAgain = $('.play-again')
 const resetGame = $('.game-reset')
 const cells = document.querySelectorAll('.game-cell')
 const players = [playerOne, playerTwo]
-const winCombos = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 4, 8], [6, 4, 2], [2, 5, 8], [1, 4, 7], [0, 3, 6]]
+const winCombos = [
+  [0, 3, 6],
+  [0, 4, 8],
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [1, 4, 7],
+  [2, 4, 6],
+  [2, 5, 8],
+]
 
 let user
 let computer
@@ -18,16 +27,10 @@ let boardGame
 
 players.forEach((player) => player.addEventListener('click', () => selectPlayer(player)))
 resetGame.addEventListener('click', () => {
-  // if (computer !== '✖') {
-  //   for (const cell of cells) {
-  //     cell.innerHTML = ''
-  //   }
-  //   turn(minMax(boardGame, computer).index, computer)
-  //   // console.log(minMax(boardGame, computer).index);
-  //   // console.log(turn(minMax(boardGame, computer).index, computer))
-  //   // console.log(user, 'user');
-  //   // console.log(computer, 'computer');
-  // }
+  for (const cell of cells) {
+    cell.innerHTML = ''
+  }
+  selectPlayer(computer)
 })
 playAgain.addEventListener('click', () => {
   addClasslistAndSetTime('fadeOut', winner, 'none', 0)
@@ -55,9 +58,8 @@ const selectPlayer = (player) => {
     cell.addEventListener('click', handleClick, false)
   }
 
-  if (computer === '✖') turn(minMax(boardGame, computer).index, computer)
+  if (computer === '✖') turn(minMax(boardGame, computer)?.index, computer)
   startGame()
-  console.log('aqui no lleha');
   addClasslistAndSetTime('fadeOut', gameSelection, 'none', 0)
   addClasslistAndSetTime('fadeIn', gameBoard, 'block', 300)
 }
@@ -69,16 +71,26 @@ const startGame = () => {
 
   for (const cell of cells) {
     cell.style.color = '#000'
-    cell.style.background = 'linear-gradient(130deg, #005f9eb3 0%, #00111cb3 30%, #00111cb3 70%, #005f9eb3 100%)';
+    cell.style.background = 'linear-gradient(130deg, #005f9eb3 0%, #00111cb3 30%, #00111cb3 70%, #005f9eb3 100%)'
   }
 }
 
 const turn = (spaceId, player) => {
   boardGame[spaceId] = player
-  $$(spaceId).innerHTML = player
-  const gameWon = hasWinner(boardGame, player)
-  if (gameWon) gameOver(gameWon)
-  else isTie()
+  const isUndefined = spaceId === undefined
+  if (isUndefined) $$(emptySquares().at(-2)).innerHTML = player
+  else {
+    $$(spaceId).innerHTML = player
+    const gameWon = hasWinner(boardGame, player)
+    // console.log(gameWon, 'game won')
+    // console.log(isTie(), 'is Tie')
+    if (gameWon) gameOver(gameWon)
+    else {
+      const exceptionGame = emptySquares().length === 1 && isUndefined // verificar esta linea
+      isTie(exceptionGame)
+    }
+    console.log(emptySquares(), 'asfdasfd')
+  }
 }
 
 const handleClick = (event) => {
@@ -87,7 +99,7 @@ const handleClick = (event) => {
     turn(id, user)
     if (!hasWinner(boardGame, user) && !isTie()) {
       setTimeout(() => {
-        turn(minMax(boardGame, computer).index, computer)
+        turn(minMax(boardGame, computer)?.index, computer)
       }, 500)
     }
   }
@@ -117,10 +129,12 @@ const declareWinner = message => {
   }, 1500)
 }
 
-const isTie = () => {
-  if (emptySquares().length === 0) {
+const isTie = (exception = false) => {
+  console.log(agua, 'desde is tie')
+  if (emptySquares().length === 0 || exception) {
     gameSelection.classList.remove('fadeOut')
     for (let cell of cells) {
+      cell.style.background = 'linear-gradient(130deg, #005e9c 0%, #00111c 30%, #00111c 70%, #005e9c 100%)'
       cell.removeEventListener('click', handleClick, false)
     }
     declareWinner("The Game Is Tie!")
