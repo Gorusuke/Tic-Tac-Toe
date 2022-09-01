@@ -28,6 +28,7 @@ body {
   border: 1px solid;
   box-shadow: 6px 4px 20px rgba(0, 0, 0, .1),
     inset 6px 4px 12px rgba(0, 0, 0, .2);
+  /* display: none; */
 }
 
 .game-selection h1 {
@@ -96,7 +97,6 @@ body {
 .dot {
   width: 25px;
   height: 25px;
-  background: var(--bg-color);
   border-radius: 50%;
   background: var(--bg-text-gradient);
   display: flex;
@@ -111,6 +111,24 @@ body {
   height: 15px;
   border-radius: 50%;
   background: var(--bg-color);
+}
+
+.big-dot {
+  width: 50px;
+  height: 50px;
+  background: #fff;
+}
+
+.big-dot::after {
+  width: 30px;
+  height: 30px;
+  background: var(--bg-gradient-transparency);
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .game-selection .game-players .game-player:hover span {
@@ -201,7 +219,8 @@ body {
   cursor: pointer;
 }
 
-.game-reset {
+.game-reset,
+.play-again {
   color: var(--bg-text-gradient);
   font-size: 1.5rem;
   background: var(--bg-text-gradient);
@@ -215,7 +234,8 @@ body {
   transition: ease-in .5s;
 }
 
-.game-reset:hover {
+.game-reset:hover,
+.play-again:hover {
   cursor: pointer;
   -webkit-text-fill-color: var(--bg-color);
   background: var(--bg-text-gradient);
