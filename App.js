@@ -13,17 +13,18 @@ const players = [playerOne, playerTwo]
 const winCombos = [
   [0, 3, 6],
   [0, 4, 8],
-  [0, 1, 2],
   [3, 4, 5],
+  [0, 1, 2],
   [6, 7, 8],
+  [2, 5, 8],
   [1, 4, 7],
   [2, 4, 6],
-  [2, 5, 8],
 ]
 
 let user
 let computer
 let boardGame
+let isUndefined = false
 
 players.forEach((player) => player.addEventListener('click', () => selectPlayer(player)))
 resetGame.addEventListener('click', () => {
@@ -45,6 +46,8 @@ const addClasslistAndSetTime = (effect, element, display, time) => {
   element.classList.add(effect)
   return setTimeout(() => { element.style.display = display }, time)
 }
+
+// const ramdomNumberMinMax = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
 const selectPlayer = (player) => {
   const span = `<span class='dot big-dot'></span>`
@@ -77,19 +80,13 @@ const startGame = () => {
 
 const turn = (spaceId, player) => {
   boardGame[spaceId] = player
-  const isUndefined = spaceId === undefined
-  if (isUndefined) $$(emptySquares().at(-2)).innerHTML = player
+  // console.log(spaceId)
+  // console.log(emptySquares())
+  $$(spaceId).innerHTML = player
+  const gameWon = hasWinner(boardGame, player)
+  if (gameWon) gameOver(gameWon)
   else {
-    $$(spaceId).innerHTML = player
-    const gameWon = hasWinner(boardGame, player)
-    // console.log(gameWon, 'game won')
-    // console.log(isTie(), 'is Tie')
-    if (gameWon) gameOver(gameWon)
-    else {
-      const exceptionGame = emptySquares().length === 1 && isUndefined // verificar esta linea
-      isTie(exceptionGame)
-    }
-    console.log(emptySquares(), 'asfdasfd')
+    isTie()
   }
 }
 
@@ -130,7 +127,6 @@ const declareWinner = message => {
 }
 
 const isTie = (exception = false) => {
-  console.log(agua, 'desde is tie')
   if (emptySquares().length === 0 || exception) {
     gameSelection.classList.remove('fadeOut')
     for (let cell of cells) {
@@ -158,6 +154,7 @@ const hasWinner = (board, player) => {
 const emptySquares = () => boardGame.filter((elm, i) => i === elm)
 
 const minMax = (testBoard, player) => {
+  // console.log(testBoard);
   const openSpaces = emptySquares()
   const moves = []
   let bestMove
@@ -172,8 +169,8 @@ const minMax = (testBoard, player) => {
     move.index = testBoard[openSpaces[i]]
     testBoard[openSpaces[i]] = player
 
-    if (player === computer) move.score = minMax(testBoard, user)?.score
-    else move.score = minMax(testBoard, computer)?.score
+    if (player === computer) move.score = minMax(testBoard, user)?.score // check this
+    else move.score = minMax(testBoard, computer)?.score // check this 
 
     testBoard[openSpaces[i]] = move.index
 
@@ -182,7 +179,11 @@ const minMax = (testBoard, player) => {
     moves.push(move)
   }
 
+  // console.log(moves)
+
   const checkScore = (array, bestScoreValue) => {
+    console.log(array);
+    console.log(array[0].score > bestScore);
     bestScore = bestScoreValue
     for (let i = 0; i < array.length; i++) {
       if (array[i].score > bestScore) {
@@ -191,7 +192,10 @@ const minMax = (testBoard, player) => {
       }
     }
   }
+  console.log(bestMove)
+
   if (player === computer) checkScore(moves, -1000)
-  checkScore(moves, 1000)
+  else checkScore(moves, 1000)
+  // console.log(moves)
   return moves[bestMove]
 }
