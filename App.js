@@ -10,16 +10,7 @@ const playAgain = $('.play-again')
 const resetGame = $('.game-reset')
 const cells = document.querySelectorAll('.game-cell')
 const players = [playerOne, playerTwo]
-const winCombos = [
-  [0, 3, 6],
-  [0, 4, 8],
-  [3, 4, 5],
-  [0, 1, 2],
-  [6, 7, 8],
-  [2, 5, 8],
-  [1, 4, 7],
-  [2, 4, 6],
-]
+const winCombos = [[0, 3, 6], [0, 4, 8], [3, 4, 5], [0, 1, 2], [6, 7, 8], [2, 5, 8], [1, 4, 7], [2, 4, 6]]
 
 let user
 let computer
@@ -34,6 +25,7 @@ resetGame.addEventListener('click', () => {
   selectPlayer(computer)
 })
 playAgain.addEventListener('click', () => {
+  resetGame.disabled = false
   addClasslistAndSetTime('fadeOut', winner, 'none', 0)
   addClasslistAndSetTime('fadeIn', gameSelection, 'block', 300)
 
@@ -47,9 +39,8 @@ const addClasslistAndSetTime = (effect, element, display, time) => {
   return setTimeout(() => { element.style.display = display }, time)
 }
 
-// const ramdomNumberMinMax = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
-
 const selectPlayer = (player) => {
+  resetGame.disabled = false
   const span = `<span class='dot big-dot'></span>`
   const { textContent } = player
   user = (textContent === '✖') ? '✖' : span
@@ -80,12 +71,12 @@ const startGame = () => {
 
 const turn = (spaceId, player) => {
   boardGame[spaceId] = player
-  // console.log(spaceId)
-  // console.log(emptySquares())
   $$(spaceId).innerHTML = player
   const gameWon = hasWinner(boardGame, player)
-  if (gameWon) gameOver(gameWon)
-  else {
+  if (gameWon) {
+    gameOver(gameWon)
+    resetGame.disabled = true
+  } else {
     isTie()
   }
 }
@@ -128,6 +119,7 @@ const declareWinner = message => {
 
 const isTie = (exception = false) => {
   if (emptySquares().length === 0 || exception) {
+    resetGame.disabled = true
     gameSelection.classList.remove('fadeOut')
     for (let cell of cells) {
       cell.style.background = 'linear-gradient(130deg, #005e9c 0%, #00111c 30%, #00111c 70%, #005e9c 100%)'
@@ -154,7 +146,6 @@ const hasWinner = (board, player) => {
 const emptySquares = () => boardGame.filter((elm, i) => i === elm)
 
 const minMax = (testBoard, player) => {
-  // console.log(testBoard);
   const openSpaces = emptySquares()
   const moves = []
   let bestMove
@@ -169,8 +160,8 @@ const minMax = (testBoard, player) => {
     move.index = testBoard[openSpaces[i]]
     testBoard[openSpaces[i]] = player
 
-    if (player === computer) move.score = minMax(testBoard, user)?.score // check this
-    else move.score = minMax(testBoard, computer)?.score // check this 
+    if (player === computer) move.score = minMax(testBoard, user)?.score
+    else move.score = minMax(testBoard, computer)?.score
 
     testBoard[openSpaces[i]] = move.index
 
@@ -179,23 +170,16 @@ const minMax = (testBoard, player) => {
     moves.push(move)
   }
 
-  // console.log(moves)
-
-  const checkScore = (array, bestScoreValue) => {
-    console.log(array);
-    console.log(array[0].score > bestScore);
-    bestScore = bestScoreValue
+  const checkScore = (array, bestScoreValue, operator) => {
     for (let i = 0; i < array.length; i++) {
-      if (array[i].score > bestScore) {
+      if (`${array[i].score} ${operator} ${bestScoreValue}`) {
         bestScore = array[i].score
         bestMove = i
       }
     }
   }
-  console.log(bestMove)
 
-  if (player === computer) checkScore(moves, -1000)
-  else checkScore(moves, 1000)
-  // console.log(moves)
+  if (player === computer) checkScore(moves, -1000, '>')
+  else checkScore(moves, 1000, '<')
   return moves[bestMove]
 }

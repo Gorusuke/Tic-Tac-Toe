@@ -28,7 +28,6 @@ body {
   border: 1px solid;
   box-shadow: 6px 4px 20px rgba(0, 0, 0, .1),
     inset 6px 4px 12px rgba(0, 0, 0, .2);
-  /* display: none; */
 }
 
 .game-selection h1 {
@@ -232,6 +231,18 @@ body {
   margin-top: var(--margin);
   padding: 5px calc(var(--margin) / 2);
   transition: ease-in .5s;
+}
+
+.game-reset[disabled] {
+  transition: none;
+  background: #646464;
+  border: 2px solid var(--bg-text-gradient);
+  -webkit-text-fill-color: var(--bg-color);
+}
+
+.game-reset[disabled]:hover {
+  cursor: pointer;
+  background: #646464;
 }
 
 .game-reset:hover,
